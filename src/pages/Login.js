@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { userLogin } from '../actions';
@@ -11,6 +11,7 @@ class Login extends React.Component {
       email: '',
       password: '',
       buttonDisabled: true,
+      redirect: false,
     };
   }
 
@@ -30,9 +31,17 @@ class Login extends React.Component {
     }
   }
 
-  render() {
-    const { email, password, buttonDisabled } = this.state;
+  handleClick = () => {
     const { myFirstDispatch } = this.props;
+    const { email } = this.state;
+    myFirstDispatch(email);
+    this.setState({ redirect: true });
+    console.log('click');
+  };
+
+  render() {
+    const { email, password, buttonDisabled, redirect } = this.state;
+    console.log(redirect);
     return (
       <div>
         <label htmlFor="email">
@@ -57,15 +66,14 @@ class Login extends React.Component {
             value={ password }
           />
         </label>
-        <Link to="/carteira">
-          <button
-            type="button"
-            onClick={ () => myFirstDispatch(email) }
-            disabled={ buttonDisabled }
-          >
-            Entrar
-          </button>
-        </Link>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+          disabled={ buttonDisabled }
+        >
+          Entrar
+        </button>
+        { redirect && <Redirect to="/carteira" /> }
       </div>
     );
   }
