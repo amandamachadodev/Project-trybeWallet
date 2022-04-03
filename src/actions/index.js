@@ -6,8 +6,6 @@ export const RECEIVE_CURRENCIES_FAILURE = 'RECEIVE_CURRENCIES_FAILURE';
 
 export const userLogin = (state) => ({ type: 'LOGIN', state });
 
-export const walletBank = (state) => ({ type: 'CARTEIRA', state });
-
 export const requestCurrency = () => ({
   type: REQUEST_CURRENCIES,
 });
@@ -23,7 +21,7 @@ export const currenciesFailure = (error) => ({
 });
 
 export function fetchCurrency() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(requestCurrency());
     try {
       const data = await getCurrency();

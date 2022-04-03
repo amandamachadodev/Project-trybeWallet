@@ -4,6 +4,8 @@ import { RECEIVE_CURRENCIES_FAILURE, RECEIVE_CURRENCIES_SUCCESS,
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  isFetching: false,
+  error: null,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
