@@ -5,6 +5,7 @@ export const RECEIVE_CURRENCIES_SUCCESS = 'RECEIVE_CURRENCIES_SUCCESS';
 export const RECEIVE_CURRENCIES_FAILURE = 'RECEIVE_CURRENCIES_FAILURE';
 
 export const userLogin = (state) => ({ type: 'LOGIN', state });
+export const walletBank = (state) => ({ type: 'CARTEIRA', state });
 
 export const requestCurrency = () => ({
   type: REQUEST_CURRENCIES,

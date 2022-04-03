@@ -10,6 +10,11 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case 'CARTEIRA':
+    return {
+      ...state,
+      expenses: action.information,
+    };
   case REQUEST_CURRENCIES:
     return {
       ...state,
