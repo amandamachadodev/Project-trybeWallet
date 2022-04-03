@@ -36,7 +36,6 @@ class Login extends React.Component {
     const { email } = this.state;
     myFirstDispatch(email);
     this.setState({ redirect: true });
-    console.log('click');
   };
 
   render() {
