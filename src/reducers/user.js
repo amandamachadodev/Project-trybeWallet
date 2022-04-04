@@ -1,5 +1,5 @@
 import { RECEIVE_CURRENCIES_FAILURE, RECEIVE_CURRENCIES_SUCCESS,
-  REQUEST_CURRENCIES } from '../actions/index';
+  REQUEST_CURRENCIES, CARTEIRA } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -10,10 +10,10 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'CARTEIRA':
+  case CARTEIRA:
     return {
       ...state,
-      expenses: action.information,
+      expenses: action.state,
     };
   case REQUEST_CURRENCIES:
     return {
@@ -25,7 +25,6 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       isFetching: false,
       currencies: action.currencies,
-      expenses: action.expenses,
     };
   case RECEIVE_CURRENCIES_FAILURE:
     return {

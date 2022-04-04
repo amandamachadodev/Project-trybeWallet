@@ -3,9 +3,10 @@ import getCurrency from '../services/api';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRESCIES';
 export const RECEIVE_CURRENCIES_SUCCESS = 'RECEIVE_CURRENCIES_SUCCESS';
 export const RECEIVE_CURRENCIES_FAILURE = 'RECEIVE_CURRENCIES_FAILURE';
+export const CARTEIRA = 'CARTEIRA';
 
 export const userLogin = (state) => ({ type: 'LOGIN', state });
-export const walletBank = (state) => ({ type: 'CARTEIRA', state });
+export const walletBank = (state) => ({ type: CARTEIRA, state });
 
 export const requestCurrency = () => ({
   type: REQUEST_CURRENCIES,
@@ -14,6 +15,7 @@ export const requestCurrency = () => ({
 export const currenciesSuccess = (data) => ({
   type: RECEIVE_CURRENCIES_SUCCESS,
   currencies: Object.keys(data).filter((element) => element !== 'USDT'),
+  expenses: { exchangeRates: data },
 });
 
 export const currenciesFailure = (error) => ({

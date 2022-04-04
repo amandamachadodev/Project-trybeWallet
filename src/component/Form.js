@@ -7,7 +7,7 @@ class Form extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: '',
+      id: 0,
       value: '',
       description: '',
       currency: '',
@@ -27,14 +27,11 @@ class Form extends React.Component {
   }
 
   addExpense = () => {
-    const { currencies } = this.props;
-    this.setState({ exchangeRates: currencies });
-    const { id, value, description, currency, method, tag, exchangeRates } = this.state;
-    const index = id >= 0 ? this.setState({ id: id + 1 }) : id;
-    this.setState({ id: index });
-    const information = [id, value, description, currency, method, tag, exchangeRates];
-    walletBank(information);
-    console.log('click');
+    const { sendExtenses } = this.props;
+    const { value, description, currency, method, tag, exchangeRates } = this.state;
+    const expenses = { value, description, currency, method, tag, exchangeRates };
+    sendExtenses(expenses);
+    console.log(expenses);
   }
 
   render() {
@@ -60,7 +57,7 @@ class Form extends React.Component {
               id="currrency"
               data-testid="currency-input"
               name="currency"
-              value={ currency }
+              defaultValue={ currency }
               onChange={ this.handleChange }
             >
               {currencies.map((element, index) => (
@@ -78,7 +75,7 @@ class Form extends React.Component {
               id="method"
               data-testid="method-input"
               name="method"
-              value={ method }
+              defaultValue={ method }
               onChange={ this.handleChange }
             >
               <option value="dinheiro">Dinheiro</option>
@@ -92,7 +89,7 @@ class Form extends React.Component {
               id="tag"
               data-testid="tag-input"
               name="tag"
-              value={ tag }
+              defaultValue={ tag }
               onChange={ this.handleChange }
             >
               <option value="alimentacao">Alimentação</option>
@@ -123,7 +120,7 @@ class Form extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrency: () => dispatch(fetchCurrency()),
-  dispatchExtenses: (information) => dispatch(walletBank(information)),
+  sendExtenses: (expenses) => dispatch(walletBank(expenses)),
 });
 
 const mapStateToProps = (state) => ({
@@ -132,6 +129,7 @@ const mapStateToProps = (state) => ({
 
 Form.propTypes = {
   getCurrency: PropTypes.func.isRequired,
+  sendExtenses: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
