@@ -6,17 +6,17 @@ class DespesaCard extends React.Component {
     const { description, value, method, tag, currency, ask } = this.props;
     const valorConvertido = value * ask;
     return (
-      <div>
-        <p>{description}</p>
-        <p>{value}</p>
-        <p>{method}</p>
-        <p>{tag}</p>
-        <p>{currency}</p>
-        <p>{ask}</p>
-        <p>{valorConvertido}</p>
-        <p>Real</p>
-        <button type="button">Editar/Excluir</button>
-      </div>
+      <tr>
+        <th>{description}</th>
+        <th>{value}</th>
+        <th>{method}</th>
+        <th>{tag}</th>
+        <th>{currency}</th>
+        <th>{ask}</th>
+        <th>{valorConvertido}</th>
+        <th>Real</th>
+        <th><button type="button">Editar/excluir</button></th>
+      </tr>
     );
   }
 }

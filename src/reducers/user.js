@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   isFetching: false,
   error: null,
   data: [],
-  valorConvertido: [],
+  valorConvertido: [0],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {

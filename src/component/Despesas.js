@@ -13,17 +13,32 @@ class Despesas extends React.Component {
     // tag:
     const { expenses } = this.props;
     return (
-      <main>
-        {expenses.map((item) => (<DespesaCard
-          description={ item.description }
-          value={ item.value }
-          currency={ item.currency }
-          method={ item.method }
-          key={ item.id }
-          tag={ item.tag }
-          ask={ item.exchangeRates[item.currency].ask }
-        />))}
-      </main>
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {expenses.map((item) => (<DespesaCard
+            description={ item.description }
+            value={ item.value }
+            currency={ item.currency }
+            method={ item.method }
+            key={ item.id }
+            tag={ item.tag }
+            ask={ item.exchangeRates[item.currency].ask }
+          />))}
+        </tbody>
+      </table>
     );
   }
 }

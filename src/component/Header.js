@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   somaTotal = () => {
     const { expenses, valorConvertido } = this.props;
-    console.log(valorConvertido);
-    const soma = expenses.length === 0 ? 0
+    const soma = (expenses.length === 0) || (valorConvertido === undefined)
+      ? 0
       : valorConvertido.reduce((result, number) => (result + number), 0);
     return soma.toFixed(2);
   }
