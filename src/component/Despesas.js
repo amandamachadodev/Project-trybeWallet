@@ -29,6 +29,7 @@ class Despesas extends React.Component {
         </thead>
         <tbody>
           {expenses.map((item) => (<DespesaCard
+            exchangeRates={ item.exchangeRates }
             description={ item.description }
             value={ item.value }
             currency={ item.currency }

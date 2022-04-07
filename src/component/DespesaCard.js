@@ -3,20 +3,23 @@ import PropTypes from 'prop-types';
 
 class DespesaCard extends React.Component {
   render() {
-    const { description, value, method, tag, currency, ask } = this.props;
+    const { description, value, method, tag, currency, ask, exchangeRates } = this.props;
+    const moeda = exchangeRates[currency].name;
     const valorConvertido = value * ask;
     return (
-      <tr>
-        <th>{description}</th>
-        <th>{value}</th>
-        <th>{method}</th>
-        <th>{tag}</th>
-        <th>{currency}</th>
-        <th>{ask}</th>
-        <th>{valorConvertido}</th>
-        <th>Real</th>
-        <th><button type="button">Editar/excluir</button></th>
-      </tr>
+      <div>
+        <tr>
+          <td>{description}</td>
+          <td>{tag}</td>
+          <td>{method}</td>
+          <td>{Number(value).toFixed(2)}</td>
+          <td>{moeda}</td>
+          <td>{Number(ask).toFixed(2)}</td>
+          <td>{Number(valorConvertido).toFixed(2)}</td>
+          <td>Real</td>
+          <td><button type="button">Editar/excluir</button></td>
+        </tr>
+      </div>
     );
   }
 }
@@ -28,6 +31,7 @@ DespesaCard.propTypes = {
   tag: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,
   ask: PropTypes.string.isRequired,
+  exchangeRates: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default DespesaCard;

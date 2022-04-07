@@ -58,7 +58,7 @@ class Form extends React.Component {
       exchangeRates }, () => {
       sendExpenses(expenses);
       const valorConvertido = Number(exchangeRates[currency].ask) * Number(value);
-      // console.log(valorConvertido);
+      console.log(valorConvertido);
       despesas(valorConvertido);
     });
   }
