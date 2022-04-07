@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrency, walletBank } from '../actions';
+import { fetchCurrency, walletBank, amount } from '../actions';
 
 class Form extends React.Component {
   constructor() {
@@ -10,11 +10,19 @@ class Form extends React.Component {
       id: 0,
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Cartão de crédito',
+      tag: 'Lazer',
       exchangeRates: [],
+      expenses: [],
     };
+  }
+
+  getApi = async () => {
+    const ENDPOINT = 'https://economia.awesomeapi.com.br/json/all';
+    const response = await fetch(ENDPOINT);
+    const data = await response.json();
+    return data;
   }
 
   componentDidMount = async () => {
@@ -23,15 +31,36 @@ class Form extends React.Component {
   }
 
   handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value }, () => this.addExpense());
+    const { data } = this.props;
+    console.log(data);
+    this.setState({ [target.name]: target.value, exchangeRates: data }, () => {
+      const { id, value, description, currency, method, tag, exchangeRates } = this.state;
+      this.setState({ expenses: { id,
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        exchangeRates } });
+    });
   }
 
-  addExpense = () => {
-    const { sendExtenses } = this.props;
-    const { value, description, currency, method, tag, exchangeRates } = this.state;
-    const expenses = { value, description, currency, method, tag, exchangeRates };
-    sendExtenses(expenses);
-    console.log(expenses);
+  addExpense = async () => {
+    const exchangeRates = await this.getApi();
+    const { sendExpenses, despesas } = this.props;
+    const { expenses, id, value, currency } = this.state;
+    this.setState({ id: id + 1,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      exchangeRates }, () => {
+      sendExpenses(expenses);
+      const valorConvertido = Number(exchangeRates[currency].ask) * Number(value);
+      console.log(valorConvertido);
+      despesas(valorConvertido);
+    });
   }
 
   render() {
@@ -78,9 +107,9 @@ class Form extends React.Component {
               defaultValue={ method }
               onChange={ this.handleChange }
             >
-              <option value="dinheiro">Dinheiro</option>
-              <option value="cartao-de-credito">Cartão de crédito</option>
-              <option value="cartao-de-debito">Cartão de débito</option>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="tag">
@@ -92,11 +121,11 @@ class Form extends React.Component {
               defaultValue={ tag }
               onChange={ this.handleChange }
             >
-              <option value="alimentacao">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="saude">Saúde</option>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
             </select>
           </label>
 
@@ -112,7 +141,7 @@ class Form extends React.Component {
             />
           </label>
         </form>
-        <button type="submit" onClick={ this.addExpense }>Adicionar despesa</button>
+        <button type="button" onClick={ this.addExpense }>Adicionar despesa</button>
       </>
     );
   }
@@ -120,17 +149,23 @@ class Form extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrency: () => dispatch(fetchCurrency()),
-  sendExtenses: (expenses) => dispatch(walletBank(expenses)),
+  sendExpenses: (expenses) => dispatch(walletBank(expenses)),
+  despesas: (valorConvertido) => dispatch(amount(valorConvertido)),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  data: state.wallet.data,
+  expenses: state.wallet.expenses,
+  valorConvertido: state.wallet.valorConvertido,
 });
 
 Form.propTypes = {
   getCurrency: PropTypes.func.isRequired,
-  sendExtenses: PropTypes.func.isRequired,
+  sendExpenses: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  despesas: PropTypes.func.isRequired,
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

@@ -1,11 +1,13 @@
 import { RECEIVE_CURRENCIES_FAILURE, RECEIVE_CURRENCIES_SUCCESS,
-  REQUEST_CURRENCIES, CARTEIRA } from '../actions/index';
+  REQUEST_CURRENCIES, CARTEIRA, TOTAL } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   isFetching: false,
   error: null,
+  data: [],
+  valorConvertido: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -13,7 +15,12 @@ const wallet = (state = INITIAL_STATE, action) => {
   case CARTEIRA:
     return {
       ...state,
-      expenses: action.state,
+      expenses: [...state.expenses, action.state],
+    };
+  case TOTAL:
+    return {
+      ...state,
+      valorConvertido: [...state.valorConvertido, action.state],
     };
   case REQUEST_CURRENCIES:
     return {
@@ -25,6 +32,7 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       isFetching: false,
       currencies: action.currencies,
+      data: action.data,
     };
   case RECEIVE_CURRENCIES_FAILURE:
     return {
