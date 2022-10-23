@@ -2,7 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { userLogin } from '../actions';
+import { userLogin } from '../../actions';
+import './styles.css';
 
 class Login extends React.Component {
   constructor() {
@@ -42,10 +43,12 @@ class Login extends React.Component {
     const { email, password, buttonDisabled, redirect } = this.state;
     console.log(redirect);
     return (
-      <div>
+      <div className="Login-wrapper">
+        <img src="https://cdn-icons-png.flaticon.com/512/3814/3814848.png" alt="carteira" width="100px"/>
+        {/* <p>Login</p> */}
         <label htmlFor="email">
-          Email:
           <input
+            placeholder='Email'
             type="email"
             data-testid="email-input"
             id="email"
@@ -55,8 +58,8 @@ class Login extends React.Component {
           />
         </label>
         <label htmlFor="password">
-          Senha:
           <input
+          placeholder='Senha'
             type="password"
             data-testid="password-input"
             id="password"
