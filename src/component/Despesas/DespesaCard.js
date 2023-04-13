@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styles.css';
 
 class DespesaCard extends React.Component {
   render() {
@@ -7,7 +8,6 @@ class DespesaCard extends React.Component {
     const moeda = exchangeRates[currency].name;
     const valorConvertido = value * ask;
     return (
-      <div>
         <tr>
           <td>{description}</td>
           <td>{tag}</td>
@@ -19,7 +19,6 @@ class DespesaCard extends React.Component {
           <td>Real</td>
           <td><button type="button">Editar/excluir</button></td>
         </tr>
-      </div>
     );
   }
 }

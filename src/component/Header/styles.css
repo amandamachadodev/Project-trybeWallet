@@ -1,0 +1,31 @@
+.Header-email {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.Header-despesa {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+h2 {
+  margin-top: 40px;
+}
+
+.Header-total {
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+}
+
+header {
+  background-color: rgb(77, 128, 48);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+}

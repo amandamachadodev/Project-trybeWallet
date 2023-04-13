@@ -5,10 +5,12 @@ export const RECEIVE_CURRENCIES_SUCCESS = 'RECEIVE_CURRENCIES_SUCCESS';
 export const RECEIVE_CURRENCIES_FAILURE = 'RECEIVE_CURRENCIES_FAILURE';
 export const CARTEIRA = 'CARTEIRA';
 export const TOTAL = 'TOTAL';
+export const DELETE_EXPENSES = 'DELETE_EXPENSES';
 
 export const userLogin = (state) => ({ type: 'LOGIN', state });
 export const walletBank = (state) => ({ type: CARTEIRA, state });
 export const amount = (state) => ({ type: TOTAL, state });
+export const deleteExpenses = (state) => ({ type: DELETE_EXPENSES, state});
 
 export const requestCurrency = () => ({
   type: REQUEST_CURRENCIES,
