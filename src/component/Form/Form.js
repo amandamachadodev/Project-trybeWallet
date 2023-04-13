@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrency, walletBank, amount } from '../actions';
+import { fetchCurrency, walletBank, amount } from '../../actions';
+import './styles.css';
 
 class Form extends React.Component {
   constructor() {
@@ -32,7 +33,7 @@ class Form extends React.Component {
 
   handleChange = ({ target }) => {
     const { data } = this.props;
-    console.log(data);
+    // console.log(data);
     this.setState({ [target.name]: target.value, exchangeRates: data }, () => {
       const { id, value, description, currency, method, tag, exchangeRates } = this.state;
       this.setState({ expenses: { id,
@@ -58,7 +59,7 @@ class Form extends React.Component {
       exchangeRates }, () => {
       sendExpenses(expenses);
       const valorConvertido = Number(exchangeRates[currency].ask) * Number(value);
-      console.log(valorConvertido);
+      // console.log(valorConvertido);
       despesas(valorConvertido);
     });
   }
@@ -67,11 +68,12 @@ class Form extends React.Component {
     const { currencies } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
-      <>
+      <div className="Form">
         <form>
           <label htmlFor="value">
             Valor:
             <input
+              className="Form-input"
               type="number"
               id="value"
               name="value"
@@ -83,6 +85,7 @@ class Form extends React.Component {
           <label htmlFor="currrency">
             Moeda
             <select
+              className="Form-select"
               id="currrency"
               data-testid="currency-input"
               name="currency"
@@ -101,6 +104,7 @@ class Form extends React.Component {
           <label htmlFor="method">
             Metodo de pagamento:
             <select
+              className="Form-select"
               id="method"
               data-testid="method-input"
               name="method"
@@ -115,6 +119,7 @@ class Form extends React.Component {
           <label htmlFor="tag">
             Categoria:
             <select
+              className="Form-select"
               id="tag"
               data-testid="tag-input"
               name="tag"
@@ -132,6 +137,7 @@ class Form extends React.Component {
           <label htmlFor="description">
             Descrição:
             <input
+              className="Form-input"
               type="text"
               id="description"
               name="description"
@@ -141,8 +147,8 @@ class Form extends React.Component {
             />
           </label>
         </form>
-        <button type="button" onClick={ this.addExpense }>Adicionar despesa</button>
-      </>
+        <button className="Form-button" type="button" onClick={ this.addExpense }>Adicionar despesa</button>
+      </div>
     );
   }
 }

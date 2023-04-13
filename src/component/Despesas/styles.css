@@ -1,0 +1,11 @@
+.Table {
+  border: dotted rgb(56, 56, 56) 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+
+th , td {
+  border: solid rgb(56, 56, 56) 1px;
+}

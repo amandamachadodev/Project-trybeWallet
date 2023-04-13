@@ -48,6 +48,7 @@ class Login extends React.Component {
         {/* <p>Login</p> */}
         <label htmlFor="email">
           <input
+            className="Login-input"
             placeholder='Email'
             type="email"
             data-testid="email-input"
@@ -59,7 +60,8 @@ class Login extends React.Component {
         </label>
         <label htmlFor="password">
           <input
-          placeholder='Senha'
+            className="Login-input"
+            placeholder='Senha'
             type="password"
             data-testid="password-input"
             id="password"
@@ -69,6 +71,7 @@ class Login extends React.Component {
           />
         </label>
         <button
+          className="Login-button"
           type="button"
           onClick={ this.handleClick }
           disabled={ buttonDisabled }

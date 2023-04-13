@@ -1,34 +1,24 @@
-.Login-wrapper {
+.Form {
   align-items: center;
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  margin-top: 15%;
-  width: 100%;
+  justify-content: space-evenly;
+  margin: 10px;
 }
 
-.Login-input {
-  background: white;
+.Form-input , .Form-select {
   border: none;
   border-radius: 5px;
   box-shadow: 0 0 3px rgb(84, 87, 82);
   height: 35px;
-  margin: 2%;
+  margin: 20px;
 }
 
-img {
-  margin-bottom: 2%;
-}
-
-h2 {
-  font-size: 24px;
-}
-
-.Login-button {
+.Form-button {
   background: rgb(77, 128, 48);
   border-radius: 5px;
   box-shadow: 0 0 3px rgb(87, 83, 82);
   height: 30px;
   margin-top: 1%;
-  width: 60px;
+
+  /* width: 60px; */
 }
