@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrency, walletBank, amount } from '../../actions';
+import { fetchCurrency, walletBank } from '../../actions';
 import './styles.css';
 
 class Form extends React.Component {
@@ -33,7 +33,6 @@ class Form extends React.Component {
 
   handleChange = ({ target }) => {
     const { data } = this.props;
-    // console.log(data);
     this.setState({ [target.name]: target.value, exchangeRates: data }, () => {
       const { id, value, description, currency, method, tag, exchangeRates } = this.state;
       this.setState({ expenses: { id,
@@ -42,14 +41,15 @@ class Form extends React.Component {
         currency,
         method,
         tag,
-        exchangeRates } });
+        exchangeRates,
+        valorConvertido: Number(exchangeRates[currency].ask) * Number(value), } });
     });
   }
 
   addExpense = async () => {
     const exchangeRates = await this.getApi();
-    const { sendExpenses, despesas } = this.props;
-    const { expenses, id, value, currency } = this.state;
+    const { sendExpenses } = this.props;
+    const { expenses, id } = this.state;
     this.setState({ id: id + 1,
       value: '',
       description: '',
@@ -58,9 +58,6 @@ class Form extends React.Component {
       tag: 'Alimentação',
       exchangeRates }, () => {
       sendExpenses(expenses);
-      const valorConvertido = Number(exchangeRates[currency].ask) * Number(value);
-      // console.log(valorConvertido);
-      despesas(valorConvertido);
     });
   }
 
@@ -156,14 +153,12 @@ class Form extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   getCurrency: () => dispatch(fetchCurrency()),
   sendExpenses: (expenses) => dispatch(walletBank(expenses)),
-  despesas: (valorConvertido) => dispatch(amount(valorConvertido)),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   data: state.wallet.data,
   expenses: state.wallet.expenses,
-  valorConvertido: state.wallet.valorConvertido,
 });
 
 Form.propTypes = {

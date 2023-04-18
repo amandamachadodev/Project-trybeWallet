@@ -1,5 +1,5 @@
 import { RECEIVE_CURRENCIES_FAILURE, RECEIVE_CURRENCIES_SUCCESS,
-  REQUEST_CURRENCIES, CARTEIRA, TOTAL, DELETE_EXPENSES } from '../actions/index';
+  REQUEST_CURRENCIES, CARTEIRA, TOTAL, DELETE_EXPENSES, SUBT_TOTAL } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -16,11 +16,6 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.state],
-    };
-  case TOTAL:
-    return {
-      ...state,
-      valorConvertido: [...state.valorConvertido, action.state],
     };
   case REQUEST_CURRENCIES:
     return {

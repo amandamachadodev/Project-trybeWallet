@@ -15,17 +15,8 @@ class Despesas extends React.Component {
   }
 
   handleClick = ({target}) => {
-    const {deleteEx} = this.props;
+    const {deleteEx, subT} = this.props;
     deleteEx(+target.parentNode.id);
-    console.log('5');
-    // const {removeExpenses} = this.state;
-    // this.setState({ removeExpenses: [...removeExpenses, +target.parentNode.id]}, () => {
-    //   const {removeExpenses} = this.state;
-    //   const {expenses} = this.props;
-    //   // const remove = expenses.filter((element) => element.id !== removeExpenses);
-    //   console.log(removeExpenses)
-    // })
-
   }
 
   render() {
@@ -55,7 +46,7 @@ class Despesas extends React.Component {
               <td>{Number(item.value).toFixed(2)}</td>
               <td>{item.exchangeRates[item.currency].name}</td>
               <td>{Number(item.exchangeRates[item.currency].ask).toFixed(2)}</td>
-              <td>{Number(item.exchangeRates[item.currency].ask).toFixed(2) * Number(item.value)}</td>
+              <td>{(Number(item.exchangeRates[item.currency].ask).toFixed(2) * Number(item.value)).toFixed(2)}</td>
               <td>Real</td>
               <td id={item.id}><button type="button" onClick={ this.handleClick }>Excluir</button></td>
             </tr>))}

@@ -5,16 +5,19 @@ import './styles.css'
 
 class Header extends React.Component {
   somaTotal = () => {
-    const { expenses, valorConvertido } = this.props;
-    const soma = (expenses.length === 0) || (valorConvertido === undefined)
+    const { expenses } = this.props;
+    const arrayValores = expenses.map((e) => Number(e.exchangeRates[e.currency].ask).toFixed(2)
+      * Number(e.value).toFixed(2));
+    const soma = (expenses.length === 0) || (expenses === undefined)
       ? 0
-      : valorConvertido.reduce((result, number) => (result + number), 0);
+      : arrayValores.reduce((result, number) => (result + number), 0);
     return soma.toFixed(2);
+    
   }
 
   render() {
     const { email } = this.props;
-    const { expenses, valorConvertido } = this.props;
+    const { expenses } = this.props;
     return (
       <header>
         <div className="Header-email">
